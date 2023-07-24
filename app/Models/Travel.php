@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +44,11 @@ class Travel extends Model
     public function getPriceAttribute(): float
     {
         return $this->price / 100;
+    }
+
+    public function scopePublic(Builder $query): void
+    {
+        $query->where('is_public', '=', '1');
     }
 
     // What is used for model id when using it in routes
