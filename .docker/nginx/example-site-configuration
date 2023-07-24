@@ -1,0 +1,48 @@
+server {
+        listen 80;
+        server_name acquit.jvdstoel.me;
+        return 301 https://acquit.jvdstoel.me$request_uri;
+}
+
+server {
+        server_name acquit.jvdstoel.me; # managed by Certbot
+        root /var/www/Acquit-Website/src/public;
+        index index.html index.htm index.php;
+
+        charset utf-8;
+        add_header X-Frame-Options "SAMEORIGIN";
+        add_header X-XSS-Protection "1; mode=block";
+        add_header X-Content-Type-Options "nosniff";
+
+        location / {
+                try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        location = /favicon.ico { access_log off; log_not_found off; }
+        location = /robots.txt { access_log off; log_not_found off; }
+
+        access_log off;
+        error_log /var/log/nginx/acquit-error.log error;
+
+        error_page 404 /index.php;
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+                fastcgi_param DOCUMENT_ROOT $realpath_root;
+                fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+        }
+
+        location ~ /\.ht {
+                deny all;
+        }
+
+        listen 443 ssl;
+        listen [::]:443 ssl;
+        ssl_certificate /etc/letsencrypt/live/acquit.jvdstoel.me/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/acquit.jvdstoel.me/privkey.pem;
+        include /etc/letsencrypt/options-ssl-nginx.conf;
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+        allow all;
+}
