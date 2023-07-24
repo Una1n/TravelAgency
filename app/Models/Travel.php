@@ -11,18 +11,25 @@ class Travel extends Model
 
     /** Fillable */
     protected $fillable = [
-        'id',
         'is_public',
-        'slug',
+        'name',
         'description',
         'number_of_days',
-        'name',
     ];
 
     protected static function booted(): void
     {
         static::creating(function (Travel $travel) {
-            $travel->slug = str($travel->name)->slug()->toString();
+            $slug = str($travel->name)->slug()->toString();
+            $count = Travel::query()->where('slug', 'like', $slug . '-%')
+                ->orWhere('slug', '=', $slug)
+                ->count();
+
+            if ($count > 0) {
+                $slug .= '-' . $count;
+            }
+
+            $travel->slug = $slug;
         });
     }
 
