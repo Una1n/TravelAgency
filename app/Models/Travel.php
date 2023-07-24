@@ -19,6 +19,18 @@ class Travel extends Model
         'name',
     ];
 
+    protected static function booted(): void
+    {
+        static::creating(function (Travel $travel) {
+            $travel->slug = str($travel->name)->slug()->toString();
+        });
+    }
+
+    public function getPriceAttribute(): float
+    {
+        return $this->price / 100;
+    }
+
     // What is used for model id when using it in routes
     public function getRouteKey(): string
     {
