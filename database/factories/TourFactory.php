@@ -19,8 +19,8 @@ class TourFactory extends Factory
         return [
             'id' => fake()->uuid(),
             'name' => fake()->sentence(3),
-            'start_date' => fake()->date(),
-            'end_date' => fake()->date(),
+            'start_date' => now(),
+            'end_date' => now()->addDays(rand(0, 20)),
             'price_in_cents' => fake()->numberBetween(20000, 500000),
         ];
     }
