@@ -18,4 +18,10 @@ class Travel extends Model
         'number_of_days',
         'name',
     ];
+
+    // What is used for model id when using it in routes
+    public function getRouteKey(): string
+    {
+        return $this->slug;
+    }
 }
