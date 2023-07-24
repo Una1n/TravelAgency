@@ -21,6 +21,12 @@ class Tour extends Model
         'price_in_cents',
     ];
 
+    /** Casts */
+    protected $casts = [
+        'start_date' => 'date:Y-m-d',
+        'end_date' => 'date:Y-m-d',
+    ];
+
     public function travel(): BelongsTo
     {
         return $this->belongsTo(Travel::class);
@@ -41,9 +47,9 @@ class Tour extends Model
         $query->where('start_date', '>=', $startDate);
     }
 
-    public function scopeDateTo(Builder $query, Carbon $endDate): void
+    public function scopeDateTo(Builder $query, Carbon $startDate): void
     {
-        $query->where('end_date', '<=', $endDate);
+        $query->where('start_date', '<=', $startDate);
     }
 
     public function getPriceAttribute(): float

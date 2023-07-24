@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TourListRequest;
 use App\Http\Resources\TourResource;
 use App\Models\Travel;
+use Carbon\Carbon;
 
 class TourController extends Controller
 {
@@ -16,9 +17,9 @@ class TourController extends Controller
             ->when($request->query('priceTo'),
                 fn ($query, string $priceTo) => $query->priceTo($priceTo))
             ->when($request->query('dateFrom'),
-                fn ($query, string $dateFrom) => $query->dateFrom($dateFrom))
+                fn ($query) => $query->dateFrom(Carbon::create($request->query('dateFrom'))))
             ->when($request->query('dateTo'),
-                fn ($query, string $dateTo) => $query->dateTo($dateTo))
+                fn ($query) => $query->dateTo(Carbon::create($request->query('dateTo'))))
             ->when($request->query('sortPrice'),
                 fn ($query, string $order) => $query->orderBy('price_in_cents', $order));
 
