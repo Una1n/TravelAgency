@@ -10,7 +10,7 @@ class Tour extends Model
     use HasFactory;
 
     /** Fillables */
-    protected $fillables = [
+    protected $fillable = [
         'name',
         'start_date',
         'end_date',

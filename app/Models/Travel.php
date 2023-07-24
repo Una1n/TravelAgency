@@ -10,7 +10,7 @@ class Travel extends Model
     use HasFactory;
 
     /** Fillable */
-    protected $fillables = [
+    protected $fillable = [
         'id',
         'is_public',
         'slug',
