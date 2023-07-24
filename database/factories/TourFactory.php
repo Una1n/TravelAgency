@@ -21,7 +21,7 @@ class TourFactory extends Factory
             'name' => fake()->sentence(3),
             'start_date' => fake()->date(),
             'end_date' => fake()->date(),
-            'price' => fake()->numberBetween(200, 2000),
+            'price_in_cents' => fake()->numberBetween(20000, 500000),
         ];
     }
 }

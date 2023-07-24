@@ -16,11 +16,15 @@ class Tour extends Model
         'name',
         'start_date',
         'end_date',
-        'price',
+        'price_in_cents',
     ];
 
     public function travel(): BelongsTo
     {
         return $this->belongsTo(Travel::class);
+    }
+    public function getPriceAttribute(): float
+    {
+        return (float) $this->price_in_cents / 100;
     }
 }

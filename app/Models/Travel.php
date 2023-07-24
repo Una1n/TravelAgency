@@ -41,14 +41,9 @@ class Travel extends Model
         return $this->hasMany(Tour::class);
     }
 
-    public function getPriceAttribute(): float
-    {
-        return $this->price / 100;
-    }
-
     public function scopePublic(Builder $query): void
     {
-        $query->where('is_public', '=', '1');
+        $query->where('is_public', true);
     }
 
     // What is used for model id when using it in routes
