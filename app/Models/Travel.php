@@ -52,8 +52,8 @@ class Travel extends Model
     }
 
     // What is used for model id when using it in routes
-    public function getRouteKey(): string
+    public function getRouteKeyName(): string
     {
-        return $this->slug;
+        return 'slug';
     }
 }
