@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tour extends Model
 {
@@ -16,4 +17,9 @@ class Tour extends Model
         'end_date',
         'price',
     ];
+
+    public function travel(): BelongsTo
+    {
+        return $this->belongsTo(Travel::class);
+    }
 }
