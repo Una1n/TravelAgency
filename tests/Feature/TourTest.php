@@ -19,7 +19,7 @@ it('shows the correct price of a tour in a specific travel', function () {
     $travel = Travel::factory()->create();
     Tour::factory()->create([
         'travel_id' => $travel->id,
-        'price_in_cents' => 50000,
+        'price' => 500,
     ]);
 
     $response = getJson(route('tours.index', $travel));
@@ -63,11 +63,11 @@ it('sorts the tours by price in a specific travel', function () {
     $travel = Travel::factory()->create();
     $cheapTour = Tour::factory()->create([
         'travel_id' => $travel->id,
-        'price_in_cents' => 10000,
+        'price' => 100,
     ]);
     $expensiveTour = Tour::factory()->create([
         'travel_id' => $travel->id,
-        'price_in_cents' => 20000,
+        'price' => 200,
     ]);
 
     $response = getJson(route('tours.index', [
@@ -86,25 +86,25 @@ it('shows the tours by price From/To in a specific travel', function () {
         'travel_id' => $travel->id,
         'start_date' => now()->addDays(3),
         'end_date' => now()->addDays(9),
-        'price_in_cents' => 10000,
+        'price' => 100,
     ]);
     $cheapTour = Tour::factory()->create([
         'travel_id' => $travel->id,
         'start_date' => now()->addDays(4),
         'end_date' => now()->addDays(10),
-        'price_in_cents' => 20000,
+        'price' => 200,
     ]);
     $expensiveTour = Tour::factory()->create([
         'travel_id' => $travel->id,
         'start_date' => now()->addDays(5),
         'end_date' => now()->addDays(11),
-        'price_in_cents' => 40000,
+        'price' => 400,
     ]);
     Tour::factory()->create([
         'travel_id' => $travel->id,
         'start_date' => now()->addDays(6),
         'end_date' => now()->addDays(12),
-        'price_in_cents' => 50000,
+        'price' => 500,
     ]);
 
     $response = getJson(route('tours.index', [

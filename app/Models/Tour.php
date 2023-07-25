@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +19,7 @@ class Tour extends Model
         'name',
         'start_date',
         'end_date',
-        'price_in_cents',
+        'price',
     ];
 
     /** Casts */
@@ -34,12 +35,12 @@ class Tour extends Model
 
     public function scopePriceFrom(Builder $query, int $price): void
     {
-        $query->where('price_in_cents', '>=', $price * 100);
+        $query->where('price', '>=', $price * 100);
     }
 
     public function scopePriceTo(Builder $query, int $price): void
     {
-        $query->where('price_in_cents', '<=', $price * 100);
+        $query->where('price', '<=', $price * 100);
     }
 
     public function scopeDateFrom(Builder $query, Carbon $startDate): void
@@ -52,8 +53,11 @@ class Tour extends Model
         $query->where('start_date', '<=', $startDate);
     }
 
-    public function getPriceAttribute(): float
+    protected function price(): Attribute
     {
-        return (float) $this->price_in_cents / 100;
+        return Attribute::make(
+            get: fn ($value) => $value / 100,
+            set: fn ($value) => $value * 100,
+        );
     }
 }

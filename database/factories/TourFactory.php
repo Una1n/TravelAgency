@@ -21,7 +21,7 @@ class TourFactory extends Factory
             'name' => fake()->sentence(3),
             'start_date' => now(),
             'end_date' => now()->addDays(rand(0, 20)),
-            'price_in_cents' => fake()->numberBetween(20000, 500000),
+            'price' => fake()->numberBetween(20000, 500000),
         ];
     }
 }
