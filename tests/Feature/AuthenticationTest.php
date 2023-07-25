@@ -2,12 +2,12 @@
 
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
-use function Pest\Laravel\post;
+use function Pest\Laravel\postJson;
 
 it('can login as user', function () {
     $user = User::factory()->create();
 
-    $response = post(route('login'), [
+    $response = postJson(route('login'), [
         'email' => $user->email,
         'password' => 'password',
     ]);
@@ -22,7 +22,7 @@ it('can login as user', function () {
 it('cant login with invalid credentials', function () {
     $user = User::factory()->create();
 
-    $response = post(route('login'), [
+    $response = postJson(route('login'), [
         'email' => $user->email,
         'password' => 'wrong-password',
     ]);
@@ -35,7 +35,7 @@ it('can logout as user', function () {
     $user = User::factory()->create();
     Sanctum::actingAs($user, ['*']);
 
-    $response = post(route('logout'));
+    $response = postJson(route('logout'));
     $response->assertJsonPath('message', 'Successfully logged out.');
     $response->assertOk();
 });

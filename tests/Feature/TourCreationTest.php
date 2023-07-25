@@ -4,7 +4,7 @@ use App\Models\Role;
 use App\Models\Travel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
-use function Pest\Laravel\post;
+use function Pest\Laravel\postJson;
 
 it('can create tours as admin', function () {
     $user = User::factory()->create();
@@ -14,10 +14,10 @@ it('can create tours as admin', function () {
 
     $travel = Travel::factory()->create();
 
-    $response = post(route('tours.store', $travel), [
+    $response = postJson(route('tours.store', $travel), [
         'name' => 'Tour Name',
-        'start_date' => now(),
-        'end_date' => now()->addDays(5),
+        'start_date' => now()->format('Y-m-d'),
+        'end_date' => now()->addDays(5)->format('Y-m-d'),
         'price' => 499.99,
     ]);
 
@@ -38,7 +38,7 @@ it('cant access create tours if not admin', function () {
 
     $travel = Travel::factory()->create();
 
-    $response = post(route('tours.store', $travel), [
+    $response = postJson(route('tours.store', $travel), [
         'name' => 'Tour Name',
         'start_date' => now(),
         'end_date' => now()->addDays(5),

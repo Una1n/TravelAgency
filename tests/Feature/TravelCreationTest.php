@@ -4,7 +4,7 @@ use App\Models\Role;
 use App\Models\Travel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
-use function Pest\Laravel\post;
+use function Pest\Laravel\postJson;
 
 it('can create travel as admin', function () {
     $user = User::factory()->create();
@@ -12,7 +12,7 @@ it('can create travel as admin', function () {
     $user->roles()->attach($role);
     Sanctum::actingAs($user, ['*']);
 
-    $response = post(route('travel.store'), [
+    $response = postJson(route('travel.store'), [
         'name' => 'Japan: road to Wonder',
         'description' => 'A nice tour of Japan',
         'number_of_days' => 5,
@@ -34,7 +34,7 @@ it('cant access create travel if not admin', function () {
     $user = User::factory()->create();
     Sanctum::actingAs($user, ['*']);
 
-    $response = post(route('travel.store'), [
+    $response = postJson(route('travel.store'), [
         'name' => 'Japan: road to Wonder',
         'description' => 'A nice tour of Japan',
         'number_of_days' => 5,

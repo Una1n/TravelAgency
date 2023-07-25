@@ -4,7 +4,7 @@ use App\Models\Role;
 use App\Models\Travel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
-use function Pest\Laravel\patch;
+use function Pest\Laravel\patchJson;
 
 it('can update travel as editor', function () {
     $user = User::factory()->create();
@@ -14,7 +14,7 @@ it('can update travel as editor', function () {
 
     $travel = Travel::factory()->create();
 
-    $response = patch(route('travel.update', $travel), [
+    $response = patchJson(route('travel.update', $travel), [
         'name' => 'Japan: road to Wonder',
         'description' => 'A nice tour of Japan',
         'number_of_days' => 5,
@@ -37,7 +37,7 @@ it('cant access update travel if not editor', function () {
 
     $travel = Travel::factory()->create();
 
-    $response = patch(route('travel.update', $travel), [
+    $response = patchJson(route('travel.update', $travel), [
         'name' => 'Japan: road to Wonder',
         'description' => 'A nice tour of Japan',
         'number_of_days' => 5,

@@ -3,7 +3,7 @@
 use App\Models\Role;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
-use function Pest\Laravel\post;
+use function Pest\Laravel\postJson;
 
 it('can create a user as admin', function () {
     $user = User::factory()->create();
@@ -11,7 +11,7 @@ it('can create a user as admin', function () {
     $user->roles()->attach($role);
     Sanctum::actingAs($user, ['*']);
 
-    $response = post(route('users.store'), [
+    $response = postJson(route('users.store'), [
         'name' => 'Henk Stubbe',
         'email' => 'henk@stubbe.nl',
         'password' => 'password',
@@ -29,7 +29,7 @@ it('can create a user with a role of editor', function () {
     $user->roles()->attach($role);
     Sanctum::actingAs($user, ['*']);
 
-    $response = post(route('users.store'), [
+    $response = postJson(route('users.store'), [
         'name' => 'Henk Stubbe',
         'email' => 'henk@stubbe.nl',
         'password' => 'password',
@@ -47,7 +47,7 @@ it('cant access create user if not admin', function () {
     $user = User::factory()->create();
     Sanctum::actingAs($user, ['*']);
 
-    $response = post(route('users.store'), [
+    $response = postJson(route('users.store'), [
         'name' => 'Henk Stubbe',
         'email' => 'henk@stubbe.nl',
         'password' => 'password',
