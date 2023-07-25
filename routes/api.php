@@ -28,9 +28,15 @@ Route::middleware('auth:sanctum')->group(function () {
         ->name('users.store')
         ->can('create', User::class);
 
-    Route::post('admin/travels/create', [TravelController::class, 'store'])
-        ->name('travel.store')
-        ->can('create', Travel::class);
+    Route::controller(TravelController::class)->group(function () {
+        Route::post('admin/travels/create', 'store')
+            ->name('travel.store')
+            ->can('create', Travel::class);
+
+        Route::patch('editor/travels/{travel}/update', 'update')
+            ->name('travel.update')
+            ->can('update', 'travel');
+    });
 
     Route::post('admin/travels/{travel}/tours/create', [TourController::class, 'store'])
         ->name('tours.store')

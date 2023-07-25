@@ -24,4 +24,13 @@ class TravelController extends Controller
             'message' => 'Travel created successfully.',
         ]);
     }
+
+    public function update(StoreTravelRequest $request, Travel $travel): JsonResource
+    {
+        $travel->update($request->validated());
+
+        return TravelResource::make($travel)->additional([
+            'message' => 'Travel updated successfully.',
+        ]);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Travel;
 use App\Models\User;
 
 class TravelPolicy
@@ -18,5 +19,10 @@ class TravelPolicy
     public function create(User $user): bool
     {
         return false;
+    }
+
+    public function update(User $user, Travel $travel): bool
+    {
+        return $user->isEditor();
     }
 }
