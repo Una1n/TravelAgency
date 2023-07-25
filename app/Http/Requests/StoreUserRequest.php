@@ -26,6 +26,7 @@ class StoreUserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', Rule::unique('users', 'email'), 'max:255'],
             'password' => ['required', 'string', 'min:8', 'max:255'],
+            'role' => ['sometimes', 'string', Rule::exists('roles', 'name'), 'max:255'],
         ];
     }
 }

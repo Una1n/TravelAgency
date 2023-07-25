@@ -5,7 +5,7 @@ use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 use function Pest\Laravel\post;
 
-it('can create user as admin', function () {
+it('can create a user as admin', function () {
     $user = User::factory()->create();
     $role = Role::factory()->create(['name' => 'admin']);
     $user->roles()->attach($role);
@@ -20,6 +20,26 @@ it('can create user as admin', function () {
     $response->assertJsonPath('message', 'User created successfully.');
     $response->assertJsonPath('data.name', 'Henk Stubbe');
     $response->assertJsonPath('data.email', 'henk@stubbe.nl');
+    $response->assertCreated();
+});
+
+it('can create a user with a role of editor', function () {
+    $user = User::factory()->create();
+    $role = Role::factory()->create(['name' => 'admin']);
+    $user->roles()->attach($role);
+    Sanctum::actingAs($user, ['*']);
+
+    $response = post(route('users.store'), [
+        'name' => 'Henk Stubbe',
+        'email' => 'henk@stubbe.nl',
+        'password' => 'password',
+        'role' => 'editor',
+    ]);
+
+    $response->assertJsonPath('message', 'User created successfully.');
+    $response->assertJsonPath('data.name', 'Henk Stubbe');
+    $response->assertJsonPath('data.email', 'henk@stubbe.nl');
+    $response->assertJsonPath('data.role.0.name', 'editor');
     $response->assertCreated();
 });
 
