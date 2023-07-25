@@ -6,7 +6,6 @@ use function Pest\Laravel\post;
 
 it('can login as user', function () {
     $user = User::factory()->create();
-    // Sanctum::actingAs($user, ['*']);
 
     $response = post(route('login'), [
         'email' => $user->email,
