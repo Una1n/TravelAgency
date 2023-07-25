@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function store(StoreUserRequest $request): JsonResponse
+    public function store(StoreUserRequest $request): JsonResource
     {
         $user = User::create([
             'name' => $request->validated('name'),
@@ -17,9 +18,8 @@ class UserController extends Controller
             'password' => Hash::make($request->validated('password')),
         ]);
 
-        return response()->json([
-            'message' => 'User created successfully.',
-            'user' => $user,
-        ]);
+        return UserResource::make($user)->additional(
+            ['message' => 'User created successfully.']
+        );
     }
 }

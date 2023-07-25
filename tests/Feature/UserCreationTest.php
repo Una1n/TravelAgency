@@ -18,9 +18,9 @@ it('can create user as admin', function () {
     ]);
 
     $response->assertJsonPath('message', 'User created successfully.');
-    $response->assertJsonPath('user.name', 'Henk Stubbe');
-    $response->assertJsonPath('user.email', 'henk@stubbe.nl');
-    $response->assertOk();
+    $response->assertJsonPath('data.name', 'Henk Stubbe');
+    $response->assertJsonPath('data.email', 'henk@stubbe.nl');
+    $response->assertCreated();
 });
 
 it('cant access create user if not admin', function () {

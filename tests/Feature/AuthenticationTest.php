@@ -12,7 +12,9 @@ it('can login as user', function () {
         'password' => 'password',
     ]);
 
-    $response->assertJsonPath('user.id', $user->id);
+    $response->assertJsonPath('data.id', $user->id);
+    $response->assertJsonPath('data.name', $user->name);
+    $response->assertJsonPath('data.email', $user->email);
     $response->assertJsonPath('authorization.type', 'bearer');
     $response->assertOk();
 });
