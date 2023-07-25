@@ -27,6 +27,10 @@ Route::middleware('auth:sanctum')->group(function () {
         ->name('users.store')
         ->can('create', User::class);
 
+    Route::post('admin/travels/create', [TravelController::class, 'store'])
+        ->name('travel.store')
+        ->can('create', Travel::class);
+
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
 

@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 
-class UserPolicy
+class TravelPolicy
 {
     public function before(User $user, string $ability): ?bool
     {
