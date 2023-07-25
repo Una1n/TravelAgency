@@ -20,6 +20,8 @@ class TravelController extends Controller
     {
         $travel = Travel::create($request->validated());
 
-        return TravelResource::make($travel);
+        return TravelResource::make($travel)->additional([
+            'message' => 'Travel created successfully.',
+        ]);
     }
 }
