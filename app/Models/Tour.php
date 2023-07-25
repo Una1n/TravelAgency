@@ -33,14 +33,14 @@ class Tour extends Model
         return $this->belongsTo(Travel::class);
     }
 
-    public function scopePriceFrom(Builder $query, int $price): void
+    public function scopePriceFrom(Builder $query, string $price): void
     {
-        $query->where('price', '>=', $price * 100);
+        $query->where('price', '>=', (float) $price * 100);
     }
 
-    public function scopePriceTo(Builder $query, int $price): void
+    public function scopePriceTo(Builder $query, string $price): void
     {
-        $query->where('price', '<=', $price * 100);
+        $query->where('price', '<=', (float) $price * 100);
     }
 
     public function scopeDateFrom(Builder $query, Carbon $startDate): void

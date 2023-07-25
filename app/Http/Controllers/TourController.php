@@ -19,9 +19,9 @@ class TourController extends Controller
             ->when($request->query('priceTo'),
                 fn ($query, string $priceTo) => $query->priceTo($priceTo))
             ->when($request->query('dateFrom'),
-                fn ($query) => $query->dateFrom(Carbon::create($request->query('dateFrom'))))
+                fn ($query) => $query->dateFrom(Carbon::createFromFormat('Y-m-d', $request->query('dateFrom'))))
             ->when($request->query('dateTo'),
-                fn ($query) => $query->dateTo(Carbon::create($request->query('dateTo'))))
+                fn ($query) => $query->dateTo(Carbon::createFromFormat('Y-m-d', $request->query('dateTo'))))
             ->when($request->query('sortPrice'),
                 fn ($query, string $order) => $query->orderBy('price', $order));
 

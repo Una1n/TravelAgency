@@ -12,7 +12,7 @@ class Role extends Model
     use HasFactory, HasUuids;
 
     /** Fillable */
-    protected $fillables = [
+    protected $fillable = [
         'name',
     ];
 
