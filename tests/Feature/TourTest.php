@@ -2,6 +2,7 @@
 
 use App\Models\Tour;
 use App\Models\Travel;
+use Carbon\Carbon;
 use function Pest\Laravel\getJson;
 
 it('returns the correct tours in a specific travel', function () {
@@ -119,6 +120,9 @@ it('shows the tours by price From/To in a specific travel', function () {
 });
 
 it('shows the tours within start/end date in a specific travel', function () {
+    $nowDate = Carbon::create(2023, 7, 15);
+    Carbon::setTestNow($nowDate);
+
     $travel = Travel::factory()->create();
     Tour::factory()->create([
         'travel_id' => $travel->id,
