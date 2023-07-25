@@ -16,3 +16,6 @@ npm-debug.log
 yarn-error.log
 /.fleet
 /.idea
+_ide_helper_models.php
+_ide_helper.php
+.phpstorm.meta.php
