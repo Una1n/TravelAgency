@@ -72,23 +72,23 @@ user-provided ﬁlter, by startingDate asc.
 
 ## How to use without Docker/WSL
 
-- Clone the repository with __git clone__
-- Copy __.env.example__ file to __.env__ and edit database credentials there
-- Run __composer install__
-- Run __npm install__
-- Run __php artisan key:generate__
-- Run __php artisan migrate --seed__ (it has some seeded data for your testing)
-- Launch __http://localhost:8000/api/v1/travels__ in your browser
-- You can login as admin to manage data with default credentials __admin@example.com__ - __password__
+- Clone the repository with `git clone`
+- Copy `.env.example` file to `.env` and edit database credentials there
+- Run `composer install`
+- Run `npm install`
+- Run `php artisan key:generate`
+- Run `php artisan migrate --seed` (it has some seeded data for your testing)
+- Launch `http://localhost:8000/api/v1/travels` in your browser
+- You can login as admin to manage data with default credentials `admin@example.com` - `password`
 
 ## How to use with Docker+WSL
 
-- Clone the repository with __git clone__ in a WSL directory
-- Copy __.env.example__ file to __.env__
-- Run __./dock composer install__
-- Run __./dock npm install__
-- Run __./dock artisan key:generate__
-- Run __./dock artisan migrate --seed__ (it has some seeded data for your testing)
-- Run __./dock start__
-- Launch __http://localhost:8000/api/v1/travels__ in your browser
-- You can login as admin to manage data with default credentials __admin@example.com__ - __password__
+- Clone the repository with `git clone` in a WSL directory
+- Copy `.env.example` file to `.env`
+- Run `./dock composer install`
+- Run `./dock npm install`
+- Run `./dock artisan key:generate`
+- Run `./dock artisan migrate --seed` (it has some seeded data for your testing)
+- Run `./dock start`
+- Launch `http://localhost:8000/api/v1/travels` in your browser
+- You can login as admin to manage data with default credentials `admin@example.com` - `password`
