@@ -66,3 +66,30 @@ user-provided ﬁlter, by startingDate asc.
 - Usage of php-cs-ﬁxer and larastan are a plus;
 - Creating docs is big plus;
 - Feature tests are a big big plus.
+
+
+- - - - -
+
+## How to use without Docker/WSL
+
+- Clone the repository with __git clone__
+- Copy __.env.example__ file to __.env__ and edit database credentials there
+- Run __composer install__
+- Run __npm install__
+- Run __php artisan key:generate__
+- Run __php artisan migrate --seed__ (it has some seeded data for your testing)
+- Launch __http://localhost:8000/api/v1/travels__ in your browser
+- You can login as admin to manage data with default credentials __admin@example.com__ - __password__
+
+## How to use with Docker+WSL
+
+- Clone the repository with __git clone__ in a WSL directory
+- Copy __.env.example__ file to __.env__
+- Change dock file to executable by running: __sudo chmod +x dock__
+- Run __./dock composer install__
+- Run __./dock npm install__
+- Run __./dock artisan key:generate__
+- Run __./dock artisan migrate --seed__ (it has some seeded data for your testing)
+- Run __./dock start__
+- Launch __http://localhost:8000/api/v1/travels__ in your browser
+- You can login as admin to manage data with default credentials __admin@example.com__ - __password__
