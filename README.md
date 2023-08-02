@@ -85,7 +85,6 @@ user-provided ﬁlter, by startingDate asc.
 
 - Clone the repository with __git clone__ in a WSL directory
 - Copy __.env.example__ file to __.env__
-- Change dock file to executable by running: __sudo chmod +x dock__
 - Run __./dock composer install__
 - Run __./dock npm install__
 - Run __./dock artisan key:generate__
