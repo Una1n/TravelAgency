@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Travel;
+
 use function Pest\Laravel\getJson;
 
 it('can show a list of travel', function () {
@@ -35,7 +36,7 @@ it('can generate unique slugs', function () {
     ]);
 
     // Slugs should be different!
-    expect($travel[0]->slug)->toEqual('this-is-a-test-name');
-    expect($travel[1]->slug)->toEqual('this-is-a-test-name-1');
-    expect($travel[2]->slug)->toEqual('this-is-a-test-name-2');
+    expect($travel->first()->slug)->toEqual('this-is-a-test-name');
+    expect($travel->get(1)->slug)->toEqual('this-is-a-test-name-1');
+    expect($travel->get(2)->slug)->toEqual('this-is-a-test-name-2');
 });
