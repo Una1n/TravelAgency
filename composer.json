@@ -14,14 +14,14 @@
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
         "fakerphp/faker": "^1.23.0",
+        "larastan/larastan": "^2.10",
         "laravel/pint": "^1.13.2",
         "laravel/sail": "^1.25.0",
         "mockery/mockery": "^1.6.6",
         "nunomaduro/collision": "^7.9.0",
-        "nunomaduro/larastan": "^2.6.4",
         "pestphp/pest": "^2.19.2",
         "pestphp/pest-plugin-laravel": "^2.2",
-        "phpunit/phpunit": "^10.3.5",
+        "phpunit/phpunit": "^10.5",
         "spatie/laravel-ignition": "^2.3"
     },
     "autoload": {
