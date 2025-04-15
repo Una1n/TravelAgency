@@ -3,6 +3,7 @@
 use App\Models\Tour;
 use App\Models\Travel;
 use Carbon\Carbon;
+
 use function Pest\Laravel\getJson;
 
 it('returns the correct tours in a specific travel', function () {
