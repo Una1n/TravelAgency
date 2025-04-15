@@ -99,7 +99,7 @@ services:
     npm-run:
         image: node:current-alpine
         volumes:
-            - ./src:/var/www/html
+            - ./:/var/www/html
         working_dir: /var/www/html
         command: npm run dev
         ports:
