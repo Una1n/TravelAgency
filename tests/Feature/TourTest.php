@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Tour;
 use App\Models\Travel;
 use Carbon\Carbon;
@@ -12,8 +14,8 @@ it('returns the correct tours in a specific travel', function () {
         ->create();
 
     $response = getJson(route('tours.index', $travel));
-    $response->assertJsonCount(1, 'data');
-    $response->assertJsonFragment(['id' => $travel->tours()->first()->id]);
+    expect($response->json('data'))->toHaveCount(1);
+    expect($response->json('data')[0])->id->toBe($travel->tours()->first()->id);
     $response->assertOk();
 });
 
@@ -25,8 +27,8 @@ it('shows the correct price of a tour in a specific travel', function () {
     ]);
 
     $response = getJson(route('tours.index', $travel));
-    $response->assertJsonCount(1, 'data');
-    $response->assertJsonFragment(['price' => '500.00']);
+    expect($response->json('data'))->toHaveCount(1);
+    expect($response->json('data')[0])->price->toBe('500.00');
     $response->assertOk();
 });
 
@@ -36,8 +38,8 @@ it('can paginate the tours in a specific travel', function () {
         ->create();
 
     $response = getJson(route('tours.index', $travel));
-    $response->assertJsonCount(10, 'data');
-    $response->assertJsonPath('meta.last_page', 2);
+    expect($response->json('data'))->toHaveCount(10);
+    expect($response->json('meta'))->last_page->toBe(2);
     $response->assertOk();
 });
 
@@ -55,9 +57,9 @@ it('sorts the tours by starting date in a specific travel', function () {
     ]);
 
     $response = getJson(route('tours.index', $travel));
-    $response->assertJsonCount(2, 'data');
-    $response->assertJsonPath('data.0.id', $firstTour->id);
-    $response->assertJsonPath('data.1.id', $lastTour->id);
+    expect($response->json('data'))->toHaveCount(2);
+    expect($response->json('data')[0])->id->toBe($firstTour->id);
+    expect($response->json('data')[1])->id->toBe($lastTour->id);
     $response->assertOk();
 });
 
@@ -76,9 +78,9 @@ it('sorts the tours by price in a specific travel', function () {
         $travel,
         'sortPrice' => 'asc',
     ]));
-    $response->assertJsonCount(2, 'data');
-    $response->assertJsonPath('data.0.id', $cheapTour->id);
-    $response->assertJsonPath('data.1.id', $expensiveTour->id);
+    expect($response->json('data'))->toHaveCount(2);
+    expect($response->json('data')[0])->id->toBe($cheapTour->id);
+    expect($response->json('data')[1])->id->toBe($expensiveTour->id);
     $response->assertOk();
 });
 
@@ -114,9 +116,9 @@ it('shows the tours by price From/To in a specific travel', function () {
         'priceFrom' => 200,
         'priceTo' => 400,
     ]));
-    $response->assertJsonCount(2, 'data');
-    $response->assertJsonPath('data.0.id', $cheapTour->id);
-    $response->assertJsonPath('data.1.id', $expensiveTour->id);
+    expect($response->json('data'))->toHaveCount(2);
+    expect($response->json('data')[0])->id->toBe($cheapTour->id);
+    expect($response->json('data')[1])->id->toBe($expensiveTour->id);
     $response->assertOk();
 });
 
@@ -147,8 +149,8 @@ it('shows the tours within start/end date in a specific travel', function () {
         'dateFrom' => now()->addDays(4)->format('Y-m-d'),
         'dateTo' => now()->addDays(6)->format('Y-m-d'),
     ]));
-    $response->assertJsonCount(2, 'data');
-    $response->assertJsonPath('data.0.id', $earlyTour->id);
-    $response->assertJsonPath('data.1.id', $lateTour->id);
+    expect($response->json('data'))->toHaveCount(2);
+    expect($response->json('data')[0])->id->toBe($earlyTour->id);
+    expect($response->json('data')[1])->id->toBe($lateTour->id);
     $response->assertOk();
 });

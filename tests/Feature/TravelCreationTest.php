@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Role;
 use App\Models\Travel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+
 use function Pest\Laravel\postJson;
 
 it('can create travel as admin', function () {
@@ -19,14 +22,14 @@ it('can create travel as admin', function () {
         'is_public' => false,
     ]);
 
-    $travel = Travel::query()->whereId($response->json('data.id'))->first();
-    expect($travel)->not->ToBeNull();
+    $travel = Travel::whereId($response->json('data.id'))->first();
+    expect($travel)->not->toBeNull();
     expect($travel->number_of_nights)->toEqual(4);
 
-    $response->assertJsonPath('message', 'Travel created successfully.');
-    $response->assertJsonPath('data.name', 'Japan: road to Wonder');
-    $response->assertJsonPath('data.description', 'A nice tour of Japan');
-    $response->assertJsonPath('data.number_of_days', 5);
+    expect($response->json('message'))->toBe('Travel created successfully.');
+    expect($response->json('data'))->name->toBe('Japan: road to Wonder');
+    expect($response->json('data'))->description->toBe('A nice tour of Japan');
+    expect($response->json('data'))->number_of_days->toBe(5);
     $response->assertCreated();
 });
 

@@ -18,7 +18,7 @@ class TravelFactory extends Factory
     {
         return [
             'id' => fake()->uuid(),
-            'is_public' => false,
+            'is_public' => fake()->boolean(),
             'slug' => fake()->slug(),
             'name' => fake()->words(3, true),
             'description' => fake()->sentence(),

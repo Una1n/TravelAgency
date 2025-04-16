@@ -1,8 +1,11 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Role;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+
 use function Pest\Laravel\postJson;
 
 it('can create a user as admin', function () {
@@ -17,9 +20,9 @@ it('can create a user as admin', function () {
         'password' => 'password',
     ]);
 
-    $response->assertJsonPath('message', 'User created successfully.');
-    $response->assertJsonPath('data.name', 'Henk Stubbe');
-    $response->assertJsonPath('data.email', 'henk@stubbe.nl');
+    expect($response->json('message'))->toBe('User created successfully.');
+    expect($response->json('data'))->name->toBe('Henk Stubbe');
+    expect($response->json('data'))->email->toBe('henk@stubbe.nl');
     $response->assertCreated();
 });
 
@@ -36,10 +39,10 @@ it('can create a user with a role of editor', function () {
         'role' => 'editor',
     ]);
 
-    $response->assertJsonPath('message', 'User created successfully.');
-    $response->assertJsonPath('data.name', 'Henk Stubbe');
-    $response->assertJsonPath('data.email', 'henk@stubbe.nl');
-    $response->assertJsonPath('data.role.0.name', 'editor');
+    expect($response->json('message'))->toBe('User created successfully.');
+    expect($response->json('data'))->name->toBe('Henk Stubbe');
+    expect($response->json('data'))->email->toBe('henk@stubbe.nl');
+    expect($response->json('data')['role'][0])->name->toBe('editor');
     $response->assertCreated();
 });
 
