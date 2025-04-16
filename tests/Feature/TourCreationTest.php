@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Role;
 use App\Models\Travel;
 use App\Models\User;
@@ -24,13 +26,13 @@ it('can create tours as admin', function () {
 
     $travel->refresh();
 
-    expect($travel->tours)->not->ToBeNull();
+    expect($travel->tours)->not->toBeNull();
     expect($travel->tours)->toHaveCount(1);
 
     expect($response->json('message'))->toBe('Tour created successfully.');
     expect($response->json('data'))->name->toBe('Tour Name');
     expect($response->json('data'))->price->toBe('499.99');
-    expect($response)->assertCreated();
+    $response->assertCreated();
 });
 
 it('cant access create tours if not admin', function () {
@@ -46,5 +48,5 @@ it('cant access create tours if not admin', function () {
         'price' => 499.99,
     ]);
 
-    expect($response)->assertForbidden();
+    $response->assertForbidden();
 });

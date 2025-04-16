@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Role;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
@@ -21,7 +23,7 @@ it('can create a user as admin', function () {
     expect($response->json('message'))->toBe('User created successfully.');
     expect($response->json('data'))->name->toBe('Henk Stubbe');
     expect($response->json('data'))->email->toBe('henk@stubbe.nl');
-    expect($response)->assertCreated();
+    $response->assertCreated();
 });
 
 it('can create a user with a role of editor', function () {
@@ -41,7 +43,7 @@ it('can create a user with a role of editor', function () {
     expect($response->json('data'))->name->toBe('Henk Stubbe');
     expect($response->json('data'))->email->toBe('henk@stubbe.nl');
     expect($response->json('data')['role'][0])->name->toBe('editor');
-    expect($response)->assertCreated();
+    $response->assertCreated();
 });
 
 it('cant access create user if not admin', function () {
@@ -54,5 +56,5 @@ it('cant access create user if not admin', function () {
         'password' => 'password',
     ]);
 
-    expect($response)->assertForbidden();
+    $response->assertForbidden();
 });

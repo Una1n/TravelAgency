@@ -2,27 +2,29 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2.4",
-        "guzzlehttp/guzzle": "^7.8",
-        "laravel/framework": "^10.24",
-        "laravel/sanctum": "^3.3.1",
-        "laravel/tinker": "^2.8.2"
+        "laravel/framework": "^11.44.2",
+        "laravel/sanctum": "^4.0.8",
+        "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.13",
-        "fakerphp/faker": "^1.23.0",
-        "larastan/larastan": "^2.10",
-        "laravel/pint": "^1.13.2",
-        "laravel/sail": "^1.25.0",
-        "mockery/mockery": "^1.6.6",
-        "nunomaduro/collision": "^7.9.0",
-        "pestphp/pest": "^2.19.2",
-        "pestphp/pest-plugin-laravel": "^2.2",
-        "phpunit/phpunit": "^10.5",
-        "spatie/laravel-ignition": "^2.3"
+        "barryvdh/laravel-ide-helper": "^3.5.5",
+        "fakerphp/faker": "^1.24.1",
+        "larastan/larastan": "^3.3.1",
+        "laravel/pint": "^1.22.0",
+        "laravel/sail": "^1.41.0",
+        "mockery/mockery": "^1.6.12",
+        "nunomaduro/collision": "^8.8",
+        "pestphp/pest": "^3.8.1",
+        "pestphp/pest-plugin-laravel": "^3.1",
+        "phpunit/phpunit": "^11.5.15",
+        "spatie/laravel-ignition": "^2.9.1"
     },
     "autoload": {
         "psr-4": {

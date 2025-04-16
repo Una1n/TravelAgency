@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Role;
 use App\Models\Travel;
 use App\Models\User;
@@ -21,14 +23,14 @@ it('can create travel as admin', function () {
     ]);
 
     $travel = Travel::whereId($response->json('data.id'))->first();
-    expect($travel)->not->ToBeNull();
+    expect($travel)->not->toBeNull();
     expect($travel->number_of_nights)->toEqual(4);
 
     expect($response->json('message'))->toBe('Travel created successfully.');
     expect($response->json('data'))->name->toBe('Japan: road to Wonder');
     expect($response->json('data'))->description->toBe('A nice tour of Japan');
     expect($response->json('data'))->number_of_days->toBe(5);
-    expect($response)->assertCreated();
+    $response->assertCreated();
 });
 
 it('cant access create travel if not admin', function () {
@@ -42,5 +44,5 @@ it('cant access create travel if not admin', function () {
         'is_public' => false,
     ]);
 
-    expect($response)->assertForbidden();
+    $response->assertForbidden();
 });

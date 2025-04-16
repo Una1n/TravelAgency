@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Role;
 use App\Models\Travel;
 use App\Models\User;
@@ -22,14 +24,14 @@ it('can update travel as editor', function () {
     ]);
 
     $travel = Travel::query()->whereId($response->json('data.id'))->first();
-    expect($travel)->not->ToBeNull();
+    expect($travel)->not->toBeNull();
     expect($travel->number_of_nights)->toEqual(4);
 
     expect($response->json('message'))->toBe('Travel updated successfully.');
     expect($response->json('data'))->name->toBe('Japan: road to Wonder');
     expect($response->json('data'))->description->toBe('A nice tour of Japan');
     expect($response->json('data'))->number_of_days->toBe(5);
-    expect($response)->assertOk();
+    $response->assertOk();
 });
 
 it('cant access update travel if not editor', function () {
@@ -45,5 +47,5 @@ it('cant access update travel if not editor', function () {
         'is_public' => false,
     ]);
 
-    expect($response)->assertForbidden();
+    $response->assertForbidden();
 });

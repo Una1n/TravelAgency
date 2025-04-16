@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
@@ -17,7 +19,7 @@ it('can login as user', function () {
     expect($response->json('data'))->name->toBe($user->name);
     expect($response->json('data'))->email->toBe($user->email);
     expect($response->json('authorization'))->type->toBe('bearer');
-    expect($response)->assertOk();
+    $response->assertOk();
 });
 
 it('cant login with invalid credentials', function () {
@@ -29,7 +31,7 @@ it('cant login with invalid credentials', function () {
     ]);
 
     expect($response->json('message'))->toBe('Invalid credentials.');
-    expect($response)->assertUnauthorized();
+    $response->assertUnauthorized();
 });
 
 it('can logout as user', function () {
@@ -38,5 +40,5 @@ it('can logout as user', function () {
 
     $response = postJson(route('logout'));
     expect($response->json('message'))->toBe('Successfully logged out.');
-    expect($response)->assertOk();
+    $response->assertOk();
 });

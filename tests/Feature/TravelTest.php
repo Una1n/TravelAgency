@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Travel;
 
 use function Pest\Laravel\getJson;
@@ -12,7 +14,7 @@ it('can show a list of travel', function () {
     $response = getJson(route('travel.index'));
     expect($response->json('data'))->toHaveCount(10);
     expect($response->json('meta'))->last_page->toBe(2);
-    expect($response)->assertOk();
+    $response->assertOk();
 });
 
 it('can show only public travel', function () {
@@ -26,7 +28,7 @@ it('can show only public travel', function () {
     $response = getJson(route('travel.index'));
     expect($response->json('data'))->toHaveCount(1);
     expect($response->json('data')[0])->name->toBe($publicTravel->name);
-    expect($response)->assertOk();
+    $response->assertOk();
 });
 
 it('can generate unique slugs', function () {
