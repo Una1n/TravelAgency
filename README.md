@@ -1,6 +1,6 @@
-# Travel Agency Example Project using Laravel 10
+# Travel Agency Example Project using Laravel 11
 
-This is an example project for a Travel Agency. Laravel 10 is used as framework.
+This is an example project for a Travel Agency. Laravel 11 is used as framework.
 This is based on a hiring test. The details for this test are listed below.
 
 ## Glossary
