@@ -4,6 +4,7 @@ use App\Models\Role;
 use App\Models\Travel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+
 use function Pest\Laravel\postJson;
 
 it('can create tours as admin', function () {
@@ -26,10 +27,10 @@ it('can create tours as admin', function () {
     expect($travel->tours)->not->ToBeNull();
     expect($travel->tours)->toHaveCount(1);
 
-    $response->assertJsonPath('message', 'Tour created successfully.');
-    $response->assertJsonPath('data.name', 'Tour Name');
-    $response->assertJsonPath('data.price', '499.99');
-    $response->assertCreated();
+    expect($response->json('message'))->toBe('Tour created successfully.');
+    expect($response->json('data'))->name->toBe('Tour Name');
+    expect($response->json('data'))->price->toBe('499.99');
+    expect($response)->assertCreated();
 });
 
 it('cant access create tours if not admin', function () {
@@ -45,5 +46,5 @@ it('cant access create tours if not admin', function () {
         'price' => 499.99,
     ]);
 
-    $response->assertForbidden();
+    expect($response)->assertForbidden();
 });

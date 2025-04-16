@@ -10,9 +10,9 @@ it('can show a list of travel', function () {
     ]);
 
     $response = getJson(route('travel.index'));
-    $response->assertJsonCount(10, 'data');
-    $response->assertJsonPath('meta.last_page', 2);
-    $response->assertOk();
+    expect($response->json('data'))->toHaveCount(10);
+    expect($response->json('meta'))->last_page->toBe(2);
+    expect($response)->assertOk();
 });
 
 it('can show only public travel', function () {
@@ -24,9 +24,9 @@ it('can show only public travel', function () {
     ]);
 
     $response = getJson(route('travel.index'));
-    $response->assertJsonCount(1, 'data');
-    $response->assertJsonPath('data.0.name', $publicTravel->name);
-    $response->assertOk();
+    expect($response->json('data'))->toHaveCount(1);
+    expect($response->json('data')[0])->name->toBe($publicTravel->name);
+    expect($response)->assertOk();
 });
 
 it('can generate unique slugs', function () {

@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+
 use function Pest\Laravel\postJson;
 
 it('can login as user', function () {
@@ -12,11 +13,11 @@ it('can login as user', function () {
         'password' => 'password',
     ]);
 
-    $response->assertJsonPath('data.id', $user->id);
-    $response->assertJsonPath('data.name', $user->name);
-    $response->assertJsonPath('data.email', $user->email);
-    $response->assertJsonPath('authorization.type', 'bearer');
-    $response->assertOk();
+    expect($response->json('data'))->id->toBe($user->id);
+    expect($response->json('data'))->name->toBe($user->name);
+    expect($response->json('data'))->email->toBe($user->email);
+    expect($response->json('authorization'))->type->toBe('bearer');
+    expect($response)->assertOk();
 });
 
 it('cant login with invalid credentials', function () {
@@ -27,8 +28,8 @@ it('cant login with invalid credentials', function () {
         'password' => 'wrong-password',
     ]);
 
-    $response->assertJsonPath('message', 'Invalid credentials.');
-    $response->assertUnauthorized();
+    expect($response->json('message'))->toBe('Invalid credentials.');
+    expect($response)->assertUnauthorized();
 });
 
 it('can logout as user', function () {
@@ -36,6 +37,6 @@ it('can logout as user', function () {
     Sanctum::actingAs($user, ['*']);
 
     $response = postJson(route('logout'));
-    $response->assertJsonPath('message', 'Successfully logged out.');
-    $response->assertOk();
+    expect($response->json('message'))->toBe('Successfully logged out.');
+    expect($response)->assertOk();
 });

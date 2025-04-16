@@ -4,6 +4,7 @@ use App\Models\Role;
 use App\Models\Travel;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+
 use function Pest\Laravel\patchJson;
 
 it('can update travel as editor', function () {
@@ -24,11 +25,11 @@ it('can update travel as editor', function () {
     expect($travel)->not->ToBeNull();
     expect($travel->number_of_nights)->toEqual(4);
 
-    $response->assertJsonPath('message', 'Travel updated successfully.');
-    $response->assertJsonPath('data.name', 'Japan: road to Wonder');
-    $response->assertJsonPath('data.description', 'A nice tour of Japan');
-    $response->assertJsonPath('data.number_of_days', 5);
-    $response->assertOk();
+    expect($response->json('message'))->toBe('Travel updated successfully.');
+    expect($response->json('data'))->name->toBe('Japan: road to Wonder');
+    expect($response->json('data'))->description->toBe('A nice tour of Japan');
+    expect($response->json('data'))->number_of_days->toBe(5);
+    expect($response)->assertOk();
 });
 
 it('cant access update travel if not editor', function () {
@@ -44,5 +45,5 @@ it('cant access update travel if not editor', function () {
         'is_public' => false,
     ]);
 
-    $response->assertForbidden();
+    expect($response)->assertForbidden();
 });
