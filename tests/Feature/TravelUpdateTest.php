@@ -23,7 +23,7 @@ it('can update travel as editor', function () {
         'number_of_days' => 5,
     ]);
 
-    $travel = Travel::query()->whereId($response->json('data.id'))->first();
+    $travel = Travel::whereId($response->json('data.id'))->first();
     expect($travel)->not->toBeNull();
     expect($travel->number_of_nights)->toEqual(4);
 
