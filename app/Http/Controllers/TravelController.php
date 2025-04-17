@@ -11,7 +11,7 @@ class TravelController extends Controller
 {
     public function index(): JsonResource
     {
-        $travels = Travel::query()->public()->paginate(10);
+        $travels = Travel::public()->paginate(10);
 
         return TravelResource::collection($travels);
     }
