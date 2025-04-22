@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @mixin IdeHelperTravel
+ */
 class Travel extends Model
 {
     use HasFactory, HasUuids;
@@ -36,11 +39,17 @@ class Travel extends Model
         });
     }
 
+    /**
+     * @return HasMany<Tour,Travel>
+     */
     public function tours(): HasMany
     {
         return $this->hasMany(Tour::class);
     }
 
+    /**
+     * @param  Builder<Model>  $query
+     */
     public function scopePublic(Builder $query): void
     {
         $query->where('is_public', true);

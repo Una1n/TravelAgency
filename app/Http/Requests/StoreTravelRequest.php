@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Request;
 
 class StoreTravelRequest extends FormRequest
 {
@@ -31,8 +32,8 @@ class StoreTravelRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        $this->merge([
-            'is_public' => $this->boolean('is_public'),
+        Request::merge([
+            'is_public' => Request::boolean('is_public'),
         ]);
     }
 }

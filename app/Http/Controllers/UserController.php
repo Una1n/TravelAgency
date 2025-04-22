@@ -19,8 +19,8 @@ class UserController extends Controller
             'password' => Hash::make($request->validated('password')),
         ]);
 
-        if ($request->has('role')) {
-            $role = Role::query()->whereName($request->validated('role'))->first();
+        if ($request->safe()->has('role')) {
+            $role = Role::whereName($request->validated('role'))->first();
             $user->roles()->attach($role);
         }
 

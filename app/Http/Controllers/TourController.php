@@ -14,16 +14,30 @@ class TourController extends Controller
     public function index(Travel $travel, TourListRequest $request): JsonResource
     {
         $tours = $travel->tours()
-            ->when($request->query('priceFrom'),
-                fn ($query, string $priceFrom) => $query->priceFrom($priceFrom))
-            ->when($request->query('priceTo'),
-                fn ($query, string $priceTo) => $query->priceTo($priceTo))
-            ->when($request->query('dateFrom'),
-                fn ($query) => $query->dateFrom(Carbon::createFromFormat('Y-m-d', $request->query('dateFrom'))))
-            ->when($request->query('dateTo'),
-                fn ($query) => $query->dateTo(Carbon::createFromFormat('Y-m-d', $request->query('dateTo'))))
-            ->when($request->query('sortPrice'),
-                fn ($query, string $order) => $query->orderBy('price', $order));
+            ->when(
+                $request->validated('priceFrom'),
+                fn ($query, string $priceFrom) => $query->priceFrom($priceFrom)
+            )
+            ->when(
+                $request->validated('priceTo'),
+                fn ($query, string $priceTo) => $query->priceTo($priceTo)
+            )
+            ->when(
+                $request->validated('dateFrom'),
+                fn ($query) => $query->dateFrom(
+                    Carbon::createFromFormat('Y-m-d', $request->validated('dateFrom'))
+                )
+            )
+            ->when(
+                $request->validated('dateTo'),
+                fn ($query) => $query->dateTo(
+                    Carbon::createFromFormat('Y-m-d', $request->validated('dateTo'))
+                )
+            )
+            ->when(
+                $request->validated('sortPrice'),
+                fn ($query, string $order) => $query->orderBy('price', $order)
+            );
 
         return TourResource::collection(
             $tours->orderBy('start_date')->paginate(10)
