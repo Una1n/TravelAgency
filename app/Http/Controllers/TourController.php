@@ -39,9 +39,7 @@ class TourController extends Controller
                 fn ($query, string $order) => $query->orderBy('price', $order)
             );
 
-        return TourResource::collection(
-            $tours->orderBy('start_date')->paginate(10)
-        );
+        return $tours->orderBy('start_date')->paginate(10)->toResourceCollection();
     }
 
     public function store(Travel $travel, StoreTourRequest $request): JsonResource
